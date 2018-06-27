@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Version>0.9.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\RabbitMQ.Fakes\FakeConnection.cs" Link="FakeConnection.cs" />
+    <Compile Include="..\RabbitMQ.Fakes\FakeConnectionFactory.cs" Link="FakeConnectionFactory.cs" />
+    <Compile Include="..\RabbitMQ.Fakes\FakeModel.cs" Link="FakeModel.cs" />
+    <Compile Include="..\RabbitMQ.Fakes\models\Exchange.cs" Link="models\Exchange.cs" />
+    <Compile Include="..\RabbitMQ.Fakes\models\ExchangeQueueBinding.cs" Link="models\ExchangeQueueBinding.cs" />
+    <Compile Include="..\RabbitMQ.Fakes\models\Queue.cs" Link="models\Queue.cs" />
+    <Compile Include="..\RabbitMQ.Fakes\models\RabbitMessage.cs" Link="models\RabbitMessage.cs" />
+    <Compile Include="..\RabbitMQ.Fakes\RabbitServer.cs" Link="RabbitServer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
+  </ItemGroup>
+
+</Project>

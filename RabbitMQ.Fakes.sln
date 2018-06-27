@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{63AC3B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQ.Fakes.DotNetCore", "RabbitMQ.Fakes.DotNetCore\RabbitMQ.Fakes.DotNetCore.csproj", "{EA429D94-8BCD-4E2D-A997-90807C8D7A96}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQ.Fakes.DotNetCore.Tests", "RabbitMQ.Fakes.DotNetCore.Tests\RabbitMQ.Fakes.DotNetCore.Tests.csproj", "{71DF7CCE-C40D-4ECD-945B-11CD8F4F8285}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{EA429D94-8BCD-4E2D-A997-90807C8D7A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA429D94-8BCD-4E2D-A997-90807C8D7A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA429D94-8BCD-4E2D-A997-90807C8D7A96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71DF7CCE-C40D-4ECD-945B-11CD8F4F8285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71DF7CCE-C40D-4ECD-945B-11CD8F4F8285}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71DF7CCE-C40D-4ECD-945B-11CD8F4F8285}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71DF7CCE-C40D-4ECD-945B-11CD8F4F8285}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

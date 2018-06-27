@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\RabbitMQ.Fakes.Tests\FakeConnectionFactoryTests.cs" Link="FakeConnectionFactoryTests.cs" />
+    <Compile Include="..\RabbitMQ.Fakes.Tests\FakeConnectionTests.cs" Link="FakeConnectionTests.cs" />
+    <Compile Include="..\RabbitMQ.Fakes.Tests\FakeModelTests.cs" Link="FakeModelTests.cs" />
+    <Compile Include="..\RabbitMQ.Fakes.Tests\UseCases\ReceiveMessages.cs" Link="UseCases\ReceiveMessages.cs" />
+    <Compile Include="..\RabbitMQ.Fakes.Tests\UseCases\SendMessages.cs" Link="UseCases\SendMessages.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.4.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />
+    <PackageReference Include="NUnit" Version="3.10.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UseCases\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RabbitMQ.Fakes.DotNetCore\RabbitMQ.Fakes.DotNetCore.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -26,7 +26,7 @@ namespace RabbitMQ.Fakes.Tests.UseCases
             using (var channel = connection.CreateModel())
             {
                 // First message
-                var message = channel.BasicGet("my_queue", noAck: false);
+                var message = channel.BasicGet("my_queue", autoAck: false);
                 
                 Assert.That(message,Is.Not.Null);
                 var messageBody = Encoding.ASCII.GetString(message.Body);
@@ -73,7 +73,7 @@ namespace RabbitMQ.Fakes.Tests.UseCases
 
 
                 // First message
-                var message = channel.BasicGet("my_queue", noAck: false);
+                var message = channel.BasicGet("my_queue", autoAck: false);
 
                 Assert.That(message, Is.Not.Null);
                 var messageBody = Encoding.ASCII.GetString(message.Body);
@@ -82,7 +82,7 @@ namespace RabbitMQ.Fakes.Tests.UseCases
 
                 var actualBasicProperties = message.BasicProperties;
 
-                actualBasicProperties.ShouldBeEquivalentTo(basicProperties);
+                actualBasicProperties.Should().BeEquivalentTo(basicProperties);
 
                 channel.BasicAck(message.DeliveryTag, multiple: false);
             }

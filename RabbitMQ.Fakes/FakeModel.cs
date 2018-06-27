@@ -52,6 +52,11 @@ namespace RabbitMQ.Fakes
 
         }
 
+        public IBasicPublishBatch CreateBasicPublishBatch()
+        {
+            throw new NotImplementedException();
+        }
+
         public IBasicProperties CreateBasicProperties()
         {
             return new BasicProperties();
