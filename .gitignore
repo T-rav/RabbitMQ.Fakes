@@ -7,3 +7,5 @@ packages/*
 _NCrunch*/**
 *.ncrunchsolution
 *.suo
+
+/.vs/**
