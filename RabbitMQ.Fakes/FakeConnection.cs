@@ -86,7 +86,8 @@ namespace RabbitMQ.Fakes
             this.Models.ForEach(m=>m.Abort());
         }
 
-        public void HandleConnectionBlocked(string reason)
+        public void 
+        (string reason)
         {
             
         }

@@ -186,7 +186,12 @@ namespace RabbitMQ.Fakes
 
         public uint MessageCount(string queue)
         {
-            throw new NotImplementedException();
+            _server.Queues.TryGetValue(queue, out var queueInstance);
+
+            if (queueInstance == null)
+                return 0;
+
+            return (uint)queueInstance.Messages.Count;
         }
 
         public uint ConsumerCount(string queue)
@@ -586,9 +591,12 @@ namespace RabbitMQ.Fakes
 
         public ulong NextPublishSeqNo { get; set; }
         public TimeSpan ContinuationTimeout { get; set; }
+
+
+        private EventHandler<BasicAckEventArgs> _eventHandler = null;
         event EventHandler<BasicAckEventArgs> IModel.BasicAcks
         {
-            add { throw new NotImplementedException(); }
+            add { _eventHandler = value;}
             remove { throw new NotImplementedException(); }
         }
 
