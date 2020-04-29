@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FluentAssertions;
 using NUnit.Framework;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -627,7 +628,7 @@ namespace RabbitMQ.Fakes.Tests
             model.BasicConsume("my_queue", false, new EventingBasicConsumer(model));
 
             // Act
-            var deliveryTag = model._workingMessages.First().Key;
+            var deliveryTag = model.WorkingMessages.First().Key;
             model.BasicAck(deliveryTag, false);
 
             // Assert
@@ -656,8 +657,6 @@ namespace RabbitMQ.Fakes.Tests
             Assert.That(response.Body, Is.EqualTo(encodedMessage));
             Assert.That(response.DeliveryTag, Is.GreaterThan(0));
         }
-
-        
 
         [Test]
         public void BasicGet_NoMessageOnQueue_ReturnsNull()
@@ -690,5 +689,52 @@ namespace RabbitMQ.Fakes.Tests
             Assert.That(response, Is.Null);
         }
 
+        [TestCase(true, 1, TestName = "If requeue param to BasicNack is true, the message that is nacked should remain in Rabbit")]
+        [TestCase(false, 0, TestName = "If requeue param to BasicNack is false, the message that is nacked should be removed from Rabbit")]
+        public void Nacking_Message_Should_Not_Reenqueue_Brand_New_Message(bool requeue, int expectedMessageCount) 
+        {
+            // arrange
+            var node = new RabbitServer();
+            var model = new FakeModel(node);
+
+            model.ExchangeDeclare("my_exchange", ExchangeType.Direct);
+            model.QueueDeclare("my_queue");
+            model.ExchangeBind("my_queue", "my_exchange", null);
+
+            var encodedMessage = Encoding.ASCII.GetBytes("hello world!");
+            model.BasicPublish("my_exchange", null, new BasicProperties(), encodedMessage);
+            model.BasicConsume("my_queue", false, new EventingBasicConsumer(model));
+
+            // act
+            var deliveryTag = model.WorkingMessages.First().Key;
+            model.BasicNack(deliveryTag, false, requeue);
+
+            // assert
+            Assert.That(node.Queues["my_queue"].Messages.Count, Is.EqualTo(expectedMessageCount));
+            Assert.That(model.WorkingMessages.Count, Is.EqualTo(expectedMessageCount));
+        }
+
+        [TestCase(true, 0, TestName = "BasicGet WITH auto-ack SHOULD remove the message from the queue")]
+        [TestCase(false, 1, TestName = "BasicGet with NO auto-ack should NOT remove the message from the queue")]
+        public void BasicGet_Should_Not_Remove_The_Message_From_Queue_If_Not_Acked(bool autoAck, int expectedMessageCount)
+        {
+            // arrange
+            var node = new RabbitServer();
+            var model = new FakeModel(node);
+
+            model.ExchangeDeclare("my_exchange", ExchangeType.Direct);
+            model.QueueDeclare("my_queue");
+            model.ExchangeBind("my_queue", "my_exchange", null);
+
+            var encodedMessage = Encoding.ASCII.GetBytes("hello world!");
+            model.BasicPublish("my_exchange", null, new BasicProperties(), encodedMessage);
+
+            // act
+            var message = model.BasicGet("my_queue", autoAck);
+
+            // assert
+            Assert.That(node.Queues["my_queue"].Messages.Count, Is.EqualTo(expectedMessageCount));
+            Assert.That(model.WorkingMessages.Count, Is.EqualTo(expectedMessageCount));
+        }
     }
 }

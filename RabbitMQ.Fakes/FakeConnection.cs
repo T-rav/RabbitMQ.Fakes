@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Net;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using RabbitMQ.Fakes.models;
 
 namespace RabbitMQ.Fakes
 {
@@ -112,22 +111,11 @@ namespace RabbitMQ.Fakes
 
         public string ClientProvidedName { get; }
         public ConsumerWorkService ConsumerWorkService { get; }
-        event EventHandler<CallbackExceptionEventArgs> IConnection.CallbackException
-        {
-            add { throw new NotImplementedException(); }
-            remove { throw new NotImplementedException(); }
-        }
-
+        public event EventHandler<CallbackExceptionEventArgs> CallbackException;
         public event EventHandler<EventArgs> RecoverySucceeded;
         public event EventHandler<ConnectionRecoveryErrorEventArgs> ConnectionRecoveryError;
-
         public event EventHandler<ConnectionBlockedEventArgs> ConnectionBlocked;
-        event EventHandler<ShutdownEventArgs> IConnection.ConnectionShutdown
-        {
-            add { throw new NotImplementedException(); }
-            remove { throw new NotImplementedException(); }
-        }
-
+        public event EventHandler<ShutdownEventArgs> ConnectionShutdown;
         public event EventHandler<EventArgs> ConnectionUnblocked;
 
         public ushort ChannelMax { get; set; }

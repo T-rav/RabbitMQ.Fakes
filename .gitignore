@@ -8,4 +8,5 @@ _NCrunch*/**
 *.ncrunchsolution
 *.suo
 
-/.vs/**
+# Visual Studio cache/options directory
+.vs/
